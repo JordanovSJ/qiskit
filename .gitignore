@@ -1,1 +1,2 @@
-.qiskit_venv/
+qiskit_venv/
+.gitignore
