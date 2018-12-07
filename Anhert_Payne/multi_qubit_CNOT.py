@@ -45,6 +45,37 @@ def CCCU1(axis, angle, q_circ, ctrl1, ctrl2, ctrl3, target):
     q_circ.cx(ctrl3, target)
 
 
+def nCU1(axis, angle, q_circ, ctrls, target):
+    n_ctrls = len(ctrls)
+    list_ctrls = list(ctrls)  # a list of the qubits is easier to work with, than the QuantumRegister object
+    new_ctrls = list_ctrls[:-1]  # take all control qubits references but the last one
+
+    if n_ctrls >= 2:
+
+        nCU1(axis, angle/2, q_circ, new_ctrls, target)
+        q_circ.cx(list_ctrls[-1], target)
+        nCU1(axis, -angle / 2, q_circ, new_ctrls, target)
+        q_circ.cx(list_ctrls[-1], target)
+    elif n_ctrls == 1:
+
+        if axis == 'y':
+            q_circ.cu3(angle, 0, 0, list_ctrls[0], target)
+        elif axis == 'z':
+            q_circ.cu3(0, 0, angle, list_ctrls[0], target)
+        else:
+            raise ValueError('Invalid value for axis!')
+    else:
+
+        if axis == 'y':
+            q_circ.u3(angle, 0, 0, target)
+        elif axis == 'z':
+            q_circ.u3(0, 0, angle, target)
+        else:
+            raise ValueError('Invalid value for axis!')
+
+    return 1
+
+
 if __name__ == "__main__":
     q = qiskit.QuantumRegister(4, 'q')
     qc = qiskit.QuantumCircuit(q)
@@ -53,7 +84,7 @@ if __name__ == "__main__":
     qc.h(q[1])
     qc.h(q[2])
 
-    CCCU1('y', np.pi/2, qc, q[0], q[1], q[2], q[3])
+    nCU1('y', np.pi, qc, [q[0]], q[3])
 
     # Add Measurements
 
