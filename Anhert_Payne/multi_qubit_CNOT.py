@@ -46,6 +46,19 @@ def CCCU1(axis, angle, q_circ, ctrl1, ctrl2, ctrl3, target):
 
 
 def nCU1(axis, angle, q_circ, ctrls, target):
+    """
+        Implements n-qubit controlled rotation (nCU1 )
+        The rotation is single axial (unlike the qiskit multi axial rotation u3),
+        Parameters:
+        * axis: specifies the rotation, acceptable char values 'y' and 'z'
+        (note: y and z rotation can be combined to implement any single qubit
+        unitary operation)
+        * angle: Bloch sphere angle specifying the rotation
+        * q_circ: the quantum circuit to, which the nCU1 operation is added
+        * ctrls: a list or quantum register of the control qubits.
+        * target: the target qubit
+    """
+
     n_ctrls = len(ctrls)
     list_ctrls = list(ctrls)  # a list of the qubits is easier to work with, than the QuantumRegister object
     new_ctrls = list_ctrls[:-1]  # take all control qubits references but the last one
