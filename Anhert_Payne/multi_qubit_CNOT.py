@@ -89,6 +89,11 @@ def nCU1(axis, angle, q_circ, ctrls, target):
     return 1
 
 
+def nCU1_ancilla():
+    # TODO
+    return 1
+
+
 if __name__ == "__main__":
     q = qiskit.QuantumRegister(4, 'q')
     qc = qiskit.QuantumCircuit(q)
