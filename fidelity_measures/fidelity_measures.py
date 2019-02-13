@@ -43,7 +43,7 @@ def ghz(n):
 
 if __name__ == "__main__":
 
-    n = 6
+    n = 7
     experiment = 1
 
     q = QuantumRegister(n)
