@@ -1,6 +1,7 @@
 from numpy import pi
 import numpy as np
 import pandas as pd
+import sys
 
 import qiskit
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
@@ -43,52 +44,58 @@ def ghz(n):
 
 if __name__ == "__main__":
 
-    n = 7
-    experiment = 1
-
-    q = QuantumRegister(n)
-    qc = QuantumCircuit(q)
-
-    #operations
-    qc.h(q[0])
+    n = int(sys.argv[1])
+    print(n)
     if n > 1:
-        for i in range(1, n):
-            qc.cx(q[0], q[i])
 
-    # measurement
-    c = ClassicalRegister(n, 'c')
-    meas = QuantumCircuit(q, c)
-    meas.measure(q, c)
-    qc = qc+meas
+        experiment = 1
 
-    if experiment != 1:
-         # Run the quantum circuit on a simulator backend
-        backend = Aer.get_backend('qasm_simulator')
-        shots = 8096
-        job = execute(qc, backend, shots=shots)
-        result = job.result()
-    elif experiment == 1:
-        IBMQ.load_accounts()
+        q = QuantumRegister(n)
+        qc = QuantumCircuit(q)
 
-        shots = 8192  # Number of shots to run the program (experiment); maximum is 8192 shots.
-        max_credits = 10  # Maximum number of credits to spend on executions.
-        n_qubits = n
+        #operations
+        qc.h(q[0])
+        if n > 1:
+            for i in range(1, n):
+                qc.cx(q[0], q[i])
 
-        large_enough_devices = IBMQ.backends(filters=lambda x: x.configuration().n_qubits > n_qubits and not x.configuration().simulator)
-        backend = least_busy(large_enough_devices)
-        print("The best backend is " + backend.name())
-        job_exp = execute(qc, backend=backend, shots=shots, max_credits=max_credits)
-        result = job_exp.result()
+        # measurement
+        c = ClassicalRegister(n, 'c')
+        meas = QuantumCircuit(q, c)
+        meas.measure(q, c)
+        qc = qc+meas
+
+        if experiment != 1:
+             # Run the quantum circuit on a simulator backend
+            backend = Aer.get_backend('qasm_simulator')
+            shots = 8096
+            job = execute(qc, backend, shots=shots)
+            result = job.result()
+        elif experiment == 1:
+            IBMQ.load_accounts()
+
+            shots = 8192  # Number of shots to run the program (experiment); maximum is 8192 shots.
+            max_credits = 10  # Maximum number of credits to spend on executions.
+            n_qubits = n
+
+            large_enough_devices = IBMQ.backends(filters=lambda x: x.configuration().n_qubits >= n_qubits and not x.configuration().simulator)
+            backend = least_busy(large_enough_devices)
+            print("The best backend is " + backend.name())
+            job_exp = execute(qc, backend=backend, shots=shots, max_credits=max_credits)
+            result = job_exp.result()
 
 
-    counts = result.get_counts(qc)
+        counts = result.get_counts(qc)
 
-    desired_vector = ghz(n)
-    qc_state = state_vector(counts)
-    x = state_fidelity(desired_vector, qc_state)
-    print(counts)
+        desired_vector = ghz(n)
+        qc_state = state_vector(counts)
+        x = state_fidelity(desired_vector, qc_state)
+        print(counts)
 
-    print(desired_vector)
-    print(qc_state)
-    print(x)
-    print(datetime.datetime.now())
+        print(desired_vector)
+        print(qc_state)
+        print(x)
+        print(datetime.datetime.now())
+
+    else:
+        print('Wrong parameter input!')
