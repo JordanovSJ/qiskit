@@ -78,7 +78,7 @@ if __name__ == "__main__":
             max_credits = 10  # Maximum number of credits to spend on executions.
             n_qubits = n
 
-            large_enough_devices = IBMQ.backends(filters=lambda x: x.configuration().n_qubits >= n_qubits and not x.configuration().simulator)
+            large_enough_devices = IBMQ.backends(filters=lambda x: x.configuration().n_qubits > 5 and not x.configuration().simulator) # n_qubits > 5 in order to forece using ibmq16
             backend = least_busy(large_enough_devices)
             print("The best backend is " + backend.name())
             job_exp = execute(qc, backend=backend, shots=shots, max_credits=max_credits)
