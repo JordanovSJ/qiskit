@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
             # backend = least_busy(large_enough_devices)
 
-            backend = IBMQ.backends(name='ibmqx2')[0]
+            backend = IBMQ.backends(name='ibmqx4')[0]
 
             print("The best backend is " + backend.name())
             job_exp = execute(qc, backend=backend, shots=shots, max_credits=max_credits)

@@ -235,7 +235,7 @@ def two_part_POVM():
     max_credits = 10  # Maximum number of credits to spend on executions.
     n_qubits = 3
 
-    backend = IBMQ.backends(name='ibmqx2')[0]
+    backend = IBMQ.backends(name='ibmqx4')[0]
 
     print("The best backend is " + backend.name())
 
@@ -321,7 +321,7 @@ def three_part_POVM():
     max_credits = 10  # Maximum number of credits to spend on executions.
     n_qubits = 3
 
-    backend = IBMQ.backends(name='ibmqx2')[0]
+    backend = IBMQ.backends(name='ibmqx4')[0]
     print("The best backend is " + backend.name())
 
     # Hello there
