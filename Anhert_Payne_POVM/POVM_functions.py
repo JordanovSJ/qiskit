@@ -7,15 +7,6 @@ from qiskit import execute
 from qiskit import IBMQ
 
 
-# works
-def toffoli_gate(q_circ, ctrl_q1, ctrl_q2, target_q):
-
-    q_circ.cu3(np.pi/2, 0, 0, ctrl_q2, target_q)
-    q_circ.cx(ctrl_q1, target_q)
-    q_circ.cu3(-np.pi / 2, 0, 0, ctrl_q2, target_q)
-    q_circ.cx(ctrl_q1, target_q)
-
-
 def CCU1(axis, angle, q_circ, ctrl1, ctrl2, target):
     """ Add gates acting as a doubly controlled rotation gate to an existing
         quantum circuit.
@@ -103,7 +94,7 @@ def nCU1(axis, angle, q_circ, ctrls, target):
 
 
 def nCU1_ancilla():
-    # TODO
+    # TODO: implement a multi-qubit controlled gates, using additional auxiliary qubits and linear complexity
     return 1
 
 

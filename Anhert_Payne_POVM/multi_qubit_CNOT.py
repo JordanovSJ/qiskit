@@ -2,9 +2,10 @@ import qiskit
 from qiskit.tools.visualization import plot_histogram
 import numpy as np
 
-from functions import nCU1
+from POVM_functions import nCU1
 
 if __name__ == "__main__":
+    # test implementation of a X gate controlled bt three qubits
     q = qiskit.QuantumRegister(4, 'q')
     qc = qiskit.QuantumCircuit(q)
 
@@ -16,7 +17,7 @@ if __name__ == "__main__":
 
     # Add Measurements
 
-    # Create a Classical Register with 3 bits.
+    # Create a Classical Register with 4 bits.
     c = qiskit.ClassicalRegister(4, 'c')
     # Create a Quantum Circuit
     meas = qiskit.QuantumCircuit(q, c)
