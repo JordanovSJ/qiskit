@@ -327,4 +327,6 @@ def three_part_POVM():
 
 
 if __name__ == "__main__":
-    print("I ama a dummy main function. YOLO!")
+    # three_part_POVM()
+    # two_part_POVM()
+    print("PIZZA")

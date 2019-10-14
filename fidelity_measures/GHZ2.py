@@ -30,6 +30,7 @@ def state_vector(counts):
     return vector / np.sqrt(vector_module)
 
 
+# create GHZ state vector
 def ghz(n):
 
     vector = np.zeros(2**n)

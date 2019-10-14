@@ -1,0 +1,5 @@
+POVM_function.py contains functions required to implemented a single-qubit POVM
+
+the notebook contains some illustrative examples
+
+TODO: implement the same optimization as for the RIgetti device
