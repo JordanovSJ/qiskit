@@ -1,4 +1,7 @@
 qiskit_venv/
+.ipynb_checkpoints/
 .gitignore
 *.idea
 foo/
+.ods
+qiskit_results/
